@@ -1,5 +1,5 @@
 #include <menu.h>
-#include <sound.h>
+#include <sound16.h>
 
 #define START 1
 #define SETTINGS 2
@@ -12,6 +12,8 @@
 #define LOW 1
 #define HIGH 2
 #define _3D 3
+
+#define SOUNDFILE "gtadata\\audio\\level000.raw"
 
 void cleanup()
 {
@@ -29,22 +31,22 @@ int selectSound()
     switch (key)
     {
     case UP:
-        sb_single_play("gtamenu\\CHANGE.raw");
+        soundPlay(SOUNDFILE, MONO, 44100L, 24448L, 475440L);
         break;
     case DOWN:
-        sb_single_play("gtamenu\\CHANGE.raw");
+        soundPlay(SOUNDFILE, MONO, 44100L, 24448L, 475440L);
         break;
     case LEFT:
-        sb_single_play("gtamenu\\DOWN.raw");
+        soundPlay(SOUNDFILE, MONO, 38000L, 62222L, 761154L);
         break;
     case RIGHT:
-        sb_single_play("gtamenu\\UP.raw");
+        soundPlay(SOUNDFILE, MONO, 38000L, 59720L, 701434L);
         break;
     case ENTER:
-        sb_single_play("gtamenu\\ENTER.raw");
+        soundPlay(SOUNDFILE, STEREO, 24000L, 135136L, 340304L);
         break;
     case ESC:
-        sb_single_play("gtamenu\\BACK.raw");
+        soundPlay(SOUNDFILE, MONO, 22050L, 36300L, 499888L);
         break;
     }
     return key;
@@ -281,10 +283,9 @@ void main()
 {
     SHOW_CONTROLS = 0;
     cleanup();
-    sb_detect();
-    sb_init();
+    soundInit();
     mainMenu();
-    sb_deinit();
+    soundDeinit();
     printf("[0m");
     system("cls");
 }
